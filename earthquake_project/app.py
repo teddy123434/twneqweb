@@ -2,11 +2,20 @@ from flask import Flask, render_template, g , url_for, jsonify
 import sqlite3, scraper
 from collections import defaultdict
 import datetime
+from flask_frozen import Freezer
 
 app = Flask(__name__)
+freezer = Freezer(app)
 
 scraper.save_to_db(scraper.data)
 DATABASE = '/workspaces/twneqweb/earthquake_project/data/earthquakes.db'
+
+@freezer.register_generator
+def url_generator():
+    yield '/'
+    yield '/data'
+    yield '/epicenter'
+    yield '/frequency'
 
 def get_db():
     db = getattr(g, '_database', None)

@@ -88,6 +88,8 @@ response = requests.post(url, data=params)
 data = response.json()  # 假設回應是 JSON 格式
 json_data = json.dumps(data, indent=2, ensure_ascii=False)
 db_path = '/workspaces/twneqweb/earthquake_project/data/earthquakes.db'
+conn = sqlite3.connect(db_path)
+c = conn.cursor()
 
 def test():
     print(type(data))
@@ -95,7 +97,6 @@ def test():
 
 def check_db_connection(db_path):
     try:
-        conn = sqlite3.connect(db_path)
         print("Database connection successful.")
     except sqlite3.Error as e:
         print(f"Database connection failed. Error: {e}")

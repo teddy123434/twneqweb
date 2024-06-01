@@ -26,7 +26,7 @@ jobs:
 
     - name: Build static files
       run: |
-        python earthquake_project/build.py  # 執行生成靜態文件的腳本
+        python build.py  # 執行生成靜態文件的腳本
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

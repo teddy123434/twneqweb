@@ -1,3 +1,3 @@
 Flask
-Flask-Frozen
+Frozen-Flask
 requests

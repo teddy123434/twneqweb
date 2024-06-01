@@ -22,7 +22,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install Flask-Frozen
+        pip install Frozen-Flask
 
     - name: Build static files
       run: |
@@ -32,4 +32,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build  # Flask-Frozen生成的靜態文件的目錄
+        publish_dir: ./build  # Frozen-Flask生成的靜態文件的目錄

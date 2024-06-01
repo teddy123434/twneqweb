@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地震資料</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <!-- 引入DataTables的CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <h1>地震資料</h1>
+    <div class="navigation">
+        <ul>
+            <li><a href="{{ url_for('index') }}">首頁</a></li>
+            <li><a href="{{ url_for('data') }}">地震資料</a></li>
+            <li><a href="{{ url_for('epicenter') }}">震央分布</a></li>
+            <li><a href="{{ url_for('frequency') }}">地震頻率分析</a></li>
+        </ul>
+    </div>
+    <table id="earthquakeTable",class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>地震編號</th>
+                <th>日期時間</th>
+                <th>芮氏規模</th>
+                <th>地震深度</th>
+                <th>震央地點</th>
+                <th>最大觀測震度</th>
+                <th>經度</th>
+                <th>緯度</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for earthquake in earthquakes %}
+            <tr>
+                <td><a href="https://scweb.cwa.gov.tw/zh-tw/earthquake/details/{{ earthquake[0] }}" target="_blank">{{ earthquake[0] }}</a></td>
+                <td>{{ earthquake[1] }}</td>
+                <td>{{ earthquake[2] }}</td>
+                <td>{{ earthquake[3] }}</td>
+                <td>{{ earthquake[4] }}</td>
+                <td>{{ earthquake[5] }}</td>
+                <td>{{ earthquake[6] }}</td>
+                <td>{{ earthquake[7] }}</td>
+                <td>{{ earthquake[8] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- 引入jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- 引入DataTables的JS -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+$(document).ready(function() {
+    var table = $('#myTable').DataTable();
+
+    // 當滑鼠移過時，行的背景顏色會變化
+    $('#myTable tbody')
+    .on( 'mouseenter', 'tr', function () {
+        $(this).css('background-color', '#f2f2f2');
+    } )
+    .on( 'mouseleave', 'tr', function () {
+        $(this).css('background-color', '');
+    } );
+
+    // 高亮顏色
+    table.on( 'draw', function () {
+        $('table th').css('background-color', '#4CAF50');
+        $('table th').css('color', 'white');
+    } );
+});
+</script>
+    <script>
+        $(document).ready(function() {
+            $('#earthquakeTable').DataTable({
+                "pageLength": 10, // 預設顯示10行
+                "lengthMenu": [5, 10, 25, 50, 100], // 可選擇的行數
+                "order": [[ 2, "desc" ]] // 以第三列(日期時間)降序排序
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#earthquakeTable').DataTable();
+        
+            // 當滑鼠移過時，行的背景顏色會變化
+            $('#earthquakeTable tbody')
+            .on( 'mouseenter', 'tr', function () {
+                $(this).css('background-color', '#f2f2f2');
+            } )
+            .on( 'mouseleave', 'tr', function () {
+                $(this).css('background-color', '');
+            } );
+        
+            // 高亮顏色
+            table.on( 'draw', function () {
+                $('table th').css('background-color', '#4CAF50');
+                $('table th').css('color', 'white');
+            } );
+        });
+        </script>
+            <footer>
+                <p>資料來源：中央氣象署地震測報中心 <a href="https://scweb.cwa.gov.tw/" target="_blank">(https://scweb.cwa.gov.tw/)</a></p>
+                <p>淡江大學 112-2 人工智慧應用實驗（一）期末專題 第七組：411640310 公行二A 盧俊諺; 412771015 AI一B 洪一瑄</p>
+            </footer>
+</body>
+</html>

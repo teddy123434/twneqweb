@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日地震頻率圖表</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='frequency.css') }}">
+    <!-- 引入Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>每日地震頻率圖表</h1>
+    <nav class="navigation">
+        <ul>
+            <li><a href="/">首頁</a></li>
+            <li><a href="/data">地震資料</a></li>
+            <li><a href="/epicenter">震央分布</a></li>
+            <li><a href="/frequency">地震頻率</a></li>
+        </ul>
+    </nav>
+    <canvas id="frequencyChart" width="800" height="400"></canvas>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('frequencyChart').getContext('2d');
+            var frequencyChart = new Chart(ctx, {
+                type: 'line', // 也可以使用 'bar' 來顯示條形圖
+                data: {
+                    labels: {{ labels|tojson }},
+                    datasets: [{
+                        label: '每日地震頻率',
+                        data: {{ data|tojson }},
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'category',
+                            title: {
+                                display: true,
+                                text: '日期'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '地震次數'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+        <footer>
+            <p>資料來源：中央氣象署地震測報中心 <a href="https://scweb.cwa.gov.tw/" target="_blank">(https://scweb.cwa.gov.tw/)</a></p>
+            <p>淡江大學 112-2 人工智慧應用實驗（一）期末專題 第七組：411640310 公行二A 盧俊諺; 412771015 AI一B 洪一瑄</p>
+        </footer>
+</body>
+</html>

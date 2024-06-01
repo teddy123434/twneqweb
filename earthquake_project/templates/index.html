@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣地震資料</title>
+</head>
+<body>
+    <div>
+        <h1>台灣地震資料</h1>
+        <h2>淡江大學 112-2 人工智慧應用實驗（一）期末專題</h2>
+            <h3>第七組：</h3>
+            <div>
+                411640310 公行二A 盧俊諺<br>
+                412771015 AI一B 洪一瑄
+            </div>
+        <input type="button" id="data" value="地震資料">
+        <input type="button" id="epicenter" value="震央分布">
+        <input type="button" id="frequency" value="地震頻率">
+    </div>
+    <script src={{ url_for('static', filename ='index.js')}}></script>
+</body>    
+<footer>
+        <p>資料來源：中央氣象署地震測報中心 <a href="https://scweb.cwa.gov.tw/" target="_blank">(https://scweb.cwa.gov.tw/)</a></p>
+        <p>淡江大學 112-2 人工智慧應用實驗（一）期末專題 第七組：411640310 公行二A 盧俊諺; 412771015 AI一B 洪一瑄</p>
+    </footer>
+</html>

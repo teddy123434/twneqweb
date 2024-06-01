@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g , url_for, jsonify
+from flask import Flask, render_template, g, url_for, jsonify
 import sqlite3, scraper
 from collections import defaultdict
 import datetime
@@ -8,7 +8,7 @@ app = Flask(__name__)
 freezer = Freezer(app)
 
 scraper.save_to_db(scraper.data)
-DATABASE = '/workspaces/twneqweb/earthquake_project/data/earthquakes.db'
+DATABASE = 'earthquake_project/data/earthquakes.db'
 
 @freezer.register_generator
 def url_generator():
@@ -68,7 +68,6 @@ def frequency():
 
     return render_template('frequency.html', labels=labels, data=data)
 
-
 @app.route('/get_urls')
 def get_urls():
     urls = {
@@ -79,4 +78,4 @@ def get_urls():
     return jsonify(urls)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
